@@ -75,7 +75,7 @@
 
         <menuitem
             id="menu_hr_activo_fijo_revision_activos"
-            name="Ver activos fijos"
+            name="Ver fondo fijos"
             action="ir_account_fondo_fijo"
             parent="menu_hr_activo_fijo"
             sequence="50"
