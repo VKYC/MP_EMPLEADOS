@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hr_employee_account_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.account.view.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='hr_settings']" position="after">
+                 <page name="hr_expenses_account" string="Gastos">
+                    <group>
+                        <group string='Fecha' name="date_group">
+                            <field name="account_date"/>
+                        </group>
+                        <group string='Status' name="active_group">
+                            <field name="accounting_state"/>
+                        </group>
+                        <group string="Gastos" name="expense_group">
+                            <field name="amount_account"/>
+                            <field name="amount_account_auth"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_hr_activo_fijo"
+        name="Activo Fijo"
+        action="hr.open_view_employee_list_my"
+        parent="hr.menu_hr_root"
+        sequence="50"
+    />
+
+    <record id="view_hr_employee_tree" model="ir.ui.view">
+        <field name="name">hr.employee.fondo.fijo.tree</field>
+        <field name="model">hr.employee</field>
+        <field name="arch" type="xml">
+            <tree string="Fondo Fijo">
+                <field name="name"/>
+                <field name="move_id"/>
+                <field name="account_date"/>
+                <field name="amount_account"/>
+                <field name="amount_account_auth"/>
+                <field name="accounting_state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="ir_account_fondo_fijo">
+        <field name="name">Revision Fondo Fijo</field>
+        <field name="res_model">hr.employee</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="employee_ring_gastos.view_hr_employee_tree"/>
+    </record>
+
+        <menuitem
+            id="menu_hr_activo_fijo_revision_activos"
+            name="Ver activos fijos"
+            action="ir_account_fondo_fijo"
+            parent="menu_hr_activo_fijo"
+            sequence="50"
+        />
+
+	<record id="action_compute_valited_fijo" model="ir.actions.server">
+    	<field name="name">Validar activo fijo</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="binding_model_id" ref="hr.model_hr_employee"/>
+        <field name="code">records.validate_fixed_asset()</field>
+    </record>
+
+</odoo>
