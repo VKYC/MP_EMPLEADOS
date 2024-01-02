@@ -31,6 +31,24 @@
         parent="hr.menu_hr_root"
         sequence="50"
     />
+    <record id="view_hr_employee_fijo_filter" model="ir.ui.view">
+        <field name="name">Fondo Fijo Search</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="move_id" string="Entrada Diario"/>
+                <separator/>
+                <field name="account_date"/>
+                <separator/>
+                <field name="amount_account"/>
+                <separator/>
+                <field name="amount_account_auth"/>
+                <separator/>
+                <field name="accounting_state"/>
+            </xpath>
+        </field>
+    </record>
 
     <record id="view_hr_employee_tree" model="ir.ui.view">
         <field name="name">hr.employee.fondo.fijo.tree</field>
@@ -52,6 +70,7 @@
         <field name="res_model">hr.employee</field>
         <field name="view_mode">tree</field>
         <field name="view_id" ref="employee_ring_gastos.view_hr_employee_tree"/>
+<!--        <field name="search_view_id" ref="employee_ring_gastos.view_hr_employee_fijo_filter" />-->
     </record>
 
         <menuitem
