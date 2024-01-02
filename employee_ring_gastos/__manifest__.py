@@ -19,7 +19,7 @@
         # 'security/ir.model.access.csv',
         'views/hr_employee_views.xml',
         'views/res_company_views.xml',
-        'views/res_config_settings_views.xml',
+        # 'views/res_config_settings_views.xml',
         # 'views/templates.xml',
     ],
 }
