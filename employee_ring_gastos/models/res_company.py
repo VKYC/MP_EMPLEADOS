@@ -9,22 +9,11 @@ class ResCompany(models.Model):
 
     account_active = fields.Many2one(
         "account.account",
-        string="Cuenta Activa",
-        domain="[('user_type_id', '=', 15)]",
+        string="Cuentas de Activo",
+        domain="[('user_type_id.type', 'in', ['receivable', 'liquidity', 'other'])]",
     )
     account_passive = fields.Many2one(
         "account.account",
-        string="Cuenta Pasiva",
-        domain="[('user_type_id', '=', 13)]",
+        string="Cuentas de Pasivo",
+        domain="[('user_type_id.type', 'in', ['payable', 'liquidity', 'other'])]",
     )
-
-    # account_id = fields.Many2one(
-    #     "account.account",
-    #     string="Cuenta Activa",
-    # )
-    # second_currency_id = fields.Many2one(
-    #     "account.account",
-    #     string="Cuenta Activa",
-    # )
-    # intercompany_user_id = fields.Many2one("account.account", string="Create as",
-    #                                        help="Responsible user for creation of documents triggered by intercompany rules.")
