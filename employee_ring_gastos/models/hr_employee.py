@@ -1,5 +1,6 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError, UserError
+from odoo.sql_db import db_connect
 
 
 class Employee(models.Model):
@@ -11,7 +12,8 @@ class Employee(models.Model):
     )
     account_date = fields.Date(string='Fecha de cotabilizacion')
     amount_account_auth = fields.Monetary(string='Fondo Fijo Autorizado', currency_field="company_currency_id", default=0)
-    amount_account = fields.Monetary(string='Fondo Fijo Saldo', currency_field="company_currency_id", default=0)
+    amount_account = fields.Monetary(string='Fondo Fijo Saldo', currency_field="company_currency_id", default=0,
+                                     compute='_compute_amount_account')
     company_currency_id = fields.Many2one(
         comodel_name="res.currency",
         string="Currency of the Payment Transaction",
@@ -19,6 +21,33 @@ class Employee(models.Model):
         default=lambda self: self.env.user.company_id.currency_id,
     )
     move_id = fields.Many2one(comodel_name='account.move', string='Entrada de diario')
+
+    def _compute_amount_account(self):
+        for employee_id in self:
+            other_db = db_connect('procesos_01')
+            with other_db.cursor() as other_db_cursor:
+                other_db_cursor.execute(f"SELECT * FROM mp_usuarios WHERE email = '{employee_id.work_email}'")
+                result = other_db_cursor.fetchall()
+                if not result:
+                    employee_id.amount_account = 0
+                else:
+                    if result[0][-1] == '-1':
+                        employee_id.amount_account = 0
+                    else:
+                        gastos_ids = self.env['mp.gastos'].search([('empleado_ext_id', '=', result[0][-1])])
+                        amount_total = 0
+                        for gasto_id in gastos_ids:
+                            if gasto_id.estado_recuperado == 'no_recuperado':
+                                amount_total += gasto_id.monto
+                        employee_id.amount_account = amount_total
+
+            #             other_db_cursor.execute(f"SELECT * FROM mp_gastos WHERE empleado_id = '{result[0][-1]}'")
+            #             gastos_ids = other_db_cursor.fetchall()
+            #             amount_total = 0
+            #             for gasto_id in gastos_ids:
+            #                 if not gasto_id[5]:
+            #                     amount_total += gasto_id[2]
+            #             employee_id.amount_account = amount_total
 
     def validate_fixed_asset(self):
         employee_ids = self.env['hr.employee'].search([('accounting_state', '=', 'not_account')])

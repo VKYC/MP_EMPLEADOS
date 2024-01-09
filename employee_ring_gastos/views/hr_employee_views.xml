@@ -70,13 +70,40 @@
         <field name="res_model">hr.employee</field>
         <field name="view_mode">tree</field>
         <field name="view_id" ref="employee_ring_gastos.view_hr_employee_tree"/>
-<!--        <field name="search_view_id" ref="employee_ring_gastos.view_hr_employee_fijo_filter" />-->
     </record>
 
         <menuitem
             id="menu_hr_activo_fijo_revision_activos"
             name="Ver fondo fijos"
             action="ir_account_fondo_fijo"
+            parent="menu_hr_activo_fijo"
+            sequence="50"
+        />
+
+    <record id="view_mp_gastos_tree" model="ir.ui.view">
+        <field name="name">mp.gastos.tree</field>
+        <field name="model">mp.gastos</field>
+        <field name="arch" type="xml">
+            <tree string="Fondo Fijo Por Reponer">
+                <field name="empleado_id"/>
+                <field name="concepto"/>
+                <field name="monto"/>
+                <field name="estado_recuperado"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="ir_account_fondo_fijo_por_reponer">
+        <field name="name">Fondo Fijo Por Reponer</field>
+        <field name="res_model">mp.gastos</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="employee_ring_gastos.view_mp_gastos_tree"/>
+    </record>
+
+        <menuitem
+            id="menu_hr_activo_fijo_reponer"
+            name="Fondo Fijo Por Reponer"
+            action="ir_account_fondo_fijo_por_reponer"
             parent="menu_hr_activo_fijo"
             sequence="50"
         />
@@ -88,6 +115,15 @@
         <field name="model_id" ref="hr.model_hr_employee"/>
         <field name="binding_model_id" ref="hr.model_hr_employee"/>
         <field name="code">records.validate_fixed_asset()</field>
+    </record>
+
+	<record id="action_compute_reponer_fondo" model="ir.actions.server">
+    	<field name="name">Reponer Saldo</field>
+        <field name="type">ir.actions.server</field>
+        <field name="state">code</field>
+        <field name="model_id" ref="employee_ring_gastos.model_mp_gastos"/>
+        <field name="binding_model_id" ref="employee_ring_gastos.model_mp_gastos"/>
+        <field name="code">records.reponer_fondos()</field>
     </record>
 
 </odoo>

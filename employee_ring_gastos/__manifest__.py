@@ -16,7 +16,7 @@
         'account_debit_note',],
     'data': [
         'data/data.xml',
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/hr_employee_views.xml',
         'views/res_company_views.xml',
         # 'views/res_config_settings_views.xml',
