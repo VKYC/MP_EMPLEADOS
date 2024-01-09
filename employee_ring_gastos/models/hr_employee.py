@@ -24,7 +24,7 @@ class Employee(models.Model):
 
     def _compute_amount_account(self):
         for employee_id in self:
-            other_db = db_connect('procesos_01')
+            other_db = db_connect('PROCESOS')
             with other_db.cursor() as other_db_cursor:
                 other_db_cursor.execute(f"SELECT * FROM mp_usuarios WHERE email = '{employee_id.work_email}'")
                 result = other_db_cursor.fetchall()
