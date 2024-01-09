@@ -39,7 +39,7 @@ class Employee(models.Model):
                         for gasto_id in gastos_ids:
                             if gasto_id.estado_recuperado == 'no_recuperado':
                                 amount_total += gasto_id.monto
-                        employee_id.amount_account = amount_total
+                        employee_id.amount_account = employee_id.amount_account_auth - amount_total
 
             #             other_db_cursor.execute(f"SELECT * FROM mp_gastos WHERE empleado_id = '{result[0][-1]}'")
             #             gastos_ids = other_db_cursor.fetchall()
