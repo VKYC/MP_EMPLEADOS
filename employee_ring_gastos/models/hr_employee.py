@@ -34,7 +34,7 @@ class Employee(models.Model):
                     if result[0][-1] == '-1':
                         employee_id.amount_account = 0
                     else:
-                        gastos_ids = self.env['mp.gastos'].search([('empleado_ext_id', '=', result[0][-1])])
+                        gastos_ids = self.env['mp.gastos'].search([('empleado_ext_id', '=', result[0][1])])
                         amount_total = 0
                         for gasto_id in gastos_ids:
                             if gasto_id.estado_recuperado == 'no_recuperado':
