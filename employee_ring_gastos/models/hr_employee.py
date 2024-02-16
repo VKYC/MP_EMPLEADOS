@@ -21,6 +21,11 @@ class Employee(models.Model):
         default=lambda self: self.env.user.company_id.currency_id,
     )
     move_id = fields.Many2one(comodel_name='account.move', string='Entrada de diario')
+    qty_to_approve = fields.Float(string='Cantidad a aprobar', default=0)
+    document_approve = fields.Selection(selection=[
+        ("solicitud_presupuesto", "Solicitudes de Presupuesto"),
+        ("orden_compra", "Orden de Compra")
+    ], string='Documento a Aprobar')
 
     def _compute_amount_account(self):
         for employee_id in self:

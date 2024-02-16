@@ -20,6 +20,14 @@
                         </group>
                     </group>
                 </page>
+                 <page name="hr_expenses_account_vizador" string="Vizador">
+                    <group>
+                        <field name="document_approve"/>
+                        <field name="qty_to_approve"/>
+                    </group>
+                </page>
+                 <page name="hr_expenses_account_ubicacion_transito" string="Ubicacion de Transito">
+                 </page>
             </xpath>
         </field>
     </record>
