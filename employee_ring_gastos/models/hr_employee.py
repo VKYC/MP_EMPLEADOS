@@ -30,30 +30,25 @@ class Employee(models.Model):
     def _compute_amount_account(self):
         for employee_id in self:
             other_db = db_connect('PROCESOS')
-            with other_db.cursor() as other_db_cursor:
-                other_db_cursor.execute(f"SELECT * FROM mp_usuarios WHERE email = '{employee_id.work_email}'")
-                result = other_db_cursor.fetchall()
-                if not result:
-                    employee_id.amount_account = 0
-                else:
-                    if result[0][-1] == '-1':
+            try:
+                with other_db.cursor() as other_db_cursor:
+                    other_db_cursor.execute(f"SELECT * FROM mp_usuarios WHERE email = '{employee_id.work_email}'")
+                    result = other_db_cursor.fetchall()
+                    if not result:
                         employee_id.amount_account = 0
                     else:
-                        gastos_ids = self.env['mp.gastos'].search([('empleado_ext_id', '=', result[0][1])])
-                        amount_total = 0
-                        for gasto_id in gastos_ids:
-                            if gasto_id.estado_recuperado == 'no_recuperado':
-                                amount_total += gasto_id.monto
-                        employee_id.amount_account = employee_id.amount_account_auth - amount_total
+                        if result[0][-1] == '-1':
+                            employee_id.amount_account = 0
+                        else:
+                            gastos_ids = self.env['mp.gastos'].search([('empleado_ext_id', '=', result[0][1])])
+                            amount_total = 0
+                            for gasto_id in gastos_ids:
+                                if gasto_id.estado_recuperado == 'no_recuperado':
+                                    amount_total += gasto_id.monto
+                            employee_id.amount_account = employee_id.amount_account_auth - amount_total
 
-            #             other_db_cursor.execute(f"SELECT * FROM mp_gastos WHERE empleado_id = '{result[0][-1]}'")
-            #             gastos_ids = other_db_cursor.fetchall()
-            #             amount_total = 0
-            #             for gasto_id in gastos_ids:
-            #                 if not gasto_id[5]:
-            #                     amount_total += gasto_id[2]
-            #             employee_id.amount_account = amount_total
-
+            except Exception:
+                employee_id.amount_account = 0
     def validate_fixed_asset(self):
         employee_ids = self.env['hr.employee'].search([('accounting_state', '=', 'not_account')])
         currency_clp_id = self.env.ref('base.CLP')
