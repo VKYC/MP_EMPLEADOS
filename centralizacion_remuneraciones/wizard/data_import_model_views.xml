@@ -36,14 +36,6 @@
         </field>
     </record>
 
-    <record id="confirmation_pwd" model="ir.actions.act_window">
-        <field name="name">Confirmacion de contrasena</field>
-        <field name="res_model">data.import.model</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="view_id" ref="confirmation_view_form" />
-    </record>
-
     <record id="confirmation_view_form" model="ir.ui.view">
         <field name="name">confiracion.centralizacion.remuneraciones.form</field>
         <field name="model">data.import.model</field>
@@ -61,6 +53,14 @@
                 </footer>
             </form>
         </field>
+    </record>
+
+    <record id="confirmation_pwd" model="ir.actions.act_window">
+        <field name="name">Confirmacion de contrasena</field>
+        <field name="res_model">data.import.model</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="confirmation_view_form" />
     </record>
 
 </odoo>
