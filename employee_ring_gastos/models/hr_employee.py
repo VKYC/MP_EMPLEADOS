@@ -12,8 +12,7 @@ class Employee(models.Model):
     )
     account_date = fields.Date(string='Fecha de cotabilizacion')
     amount_account_auth = fields.Monetary(string='Fondo Fijo Autorizado', currency_field="company_currency_id", default=0)
-    amount_account = fields.Monetary(string='Fondo Fijo Saldo', currency_field="company_currency_id", default=0,
-                                     compute='_compute_amount_account')
+    amount_account = fields.Monetary(string='Fondo Fijo Saldo', currency_field="company_currency_id", default=0)
     company_currency_id = fields.Many2one(
         comodel_name="res.currency",
         string="Currency of the Payment Transaction",
