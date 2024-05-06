@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Employee stock location',
-    'version': '',
+    'version': '15.1',
     'description': """ Employee stock location """,
     'summary': """  """,
     'author': 'Breithner Aquituari',
@@ -9,10 +9,13 @@
     'category': '',
     'depends': [
         'base',
+        'stock',
         'employee_ring_gastos' 
         ],
     "data": [
-        "views/hr_employee_views.xml"
+        "views/hr_employee_views.xml",
+        "views/menu_item_stock_location.xml",
+        "views/stock_location_views.xml"
     ],
     'application': True,
     'installable': True,
