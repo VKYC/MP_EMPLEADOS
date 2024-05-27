@@ -1,17 +1,10 @@
-# -*- coding: utf-8 -*-
 {
-    'name': 'Employee stock location',
-    'version': '15.1',
-    'description': """ Employee stock location """,
-    'summary': """  """,
-    'author': 'Breithner Aquituari',
-    'website': '',
-    'category': '',
-    'depends': [
-        'base',
-        'stock',
-        'employee_ring_gastos' 
-        ],
+    'name': 'Employee Stock Location',
+    'version': '15.0.0.0.1',
+    'summary': """ Employee Transit Location Feature """,
+    'author': 'Baruc Álvarez',
+    'category': 'Employees',
+    'depends': ['base', 'stock', 'employee_ring_gastos'],
     "data": [
         "views/hr_employee_views.xml",
         "views/menu_item_stock_location.xml",
