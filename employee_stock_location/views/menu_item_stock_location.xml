@@ -20,9 +20,10 @@
             <field name="view_id" ref="employee_stock_location.view_stock_location_employee_tree"/>
         </record>
 
-        <menuitem name="Ubicaciones de Tránsito" id="stock_location_hr_employee_rel_item"
-            parent="hr.menu_hr_employee_payroll"
-            action="stock_location_hr_employee_rel_view" />
+        <menuitem name="Ubicaciones de Tránsito"
+                  id="stock_location_hr_employee_rel_item"
+                  parent="hr.menu_hr_employee_payroll"
+                  action="stock_location_hr_employee_rel_view" />
 
     </data>
 </odoo>
