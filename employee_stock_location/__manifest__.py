@@ -4,11 +4,11 @@
     'summary': """ Employee Transit Location Feature """,
     'author': 'Baruc Álvarez',
     'category': 'Employees',
-    'depends': ['base', 'stock', 'employee_ring_gastos'],
+    'depends': ['base', 'stock', 'employee_ring_gastos', 'hr'],
     "data": [
-        "views/hr_employee_views.xml",
         "views/menu_item_stock_location.xml",
-        "views/stock_location_views.xml"
+        "views/stock_location_views.xml",
+        "views/hr_employee_views.xml"
     ],
     'application': True,
     'installable': True,
