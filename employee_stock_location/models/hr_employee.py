@@ -19,9 +19,10 @@ class HrEmployee(models.Model):
             })
         return employee_id
 
-    @api.onchange(is_transit_location)
+    @api.onchange('location_id')
     def create_transit_location_relation(self):
         for employee_id in self:
-            if employee_id.is_transit_location and not employee_id.location_id:
-                print('ok')
-
+            stock_location_id = self.env['stock.location'].browse(employee_id.location_id.id)
+            if employee_id.location_id:
+                stock_location_id.is_employee = True
+                stock_location_id.employee_id = self._origin.id
