@@ -20,10 +20,11 @@ class StockLocation(models.Model):
     @api.model
     def create(self, vals):
         stock_location_id = super(StockLocation, self).create(vals)
-        employee_id = self.env['hr.employee'].browse(vals['employee_id'])
-        if employee_id:
-            if not employee_id.location_id:
-                employee_id.location_id = stock_location_id.id
-            else:
-                raise ValidationError(_("This employee already has a transit location set"))
-        return stock_location_id
+        if stock_location_id.is_employee:
+            employee_id = self.env['hr.employee'].browse(vals['employee_id'])
+            if employee_id:
+                if not employee_id.location_id:
+                    employee_id.location_id = stock_location_id.id
+                else:
+                    raise ValidationError(_("This employee already has a transit location set"))
+            return stock_location_id

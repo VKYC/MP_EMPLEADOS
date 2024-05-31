@@ -8,7 +8,8 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='hr_expenses_account_ubicacion_transito']" position='inside'>
                 <group>
-                    <field name="location_id" string="Transit Location" />
+                    <field name="is_transit_location" string="Is Transit Location"/>
+                    <field name="location_id" string="Transit Location" domain="[('usage', '=', 'transit')]"/>
                 </group>
             </xpath>
         </field>
