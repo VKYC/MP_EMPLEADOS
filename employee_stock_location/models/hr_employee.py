@@ -4,8 +4,8 @@ from odoo import models, fields, api
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    location_id = fields.Many2one(comodel_name='stock.location', string='Transit Location')
-    is_transit_location = fields.Boolean(string='Is Transit Location', default=False, copy=False)
+    location_id = fields.Many2one(comodel_name='stock.location', string='Ubicación de Transito')
+    is_transit_location = fields.Boolean(string='Es Ubicación de Transito', default=False, copy=False)
 
     @api.model
     def create(self, vals):
