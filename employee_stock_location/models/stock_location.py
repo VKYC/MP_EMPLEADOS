@@ -14,6 +14,8 @@ class StockLocation(models.Model):
         for stock_location_id in self:
             if stock_location_id.is_employee and stock_location_id.identification_id is not False:
                 stock_location_id.name = stock_location_id.identification_id + '-' + stock_location_id.employee_id.name
+                stock_location_id.employee_id.location_id = self._origin.id
+                stock_location_id.employee_id.is_transit_location = True
             else:
                 stock_location_id.name = False
 
