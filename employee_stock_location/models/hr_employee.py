@@ -17,6 +17,8 @@ class HrEmployee(models.Model):
                 'is_employee': True,
                 'employee_id': employee_id.id,
             })
+        else:
+            return employee_id
         return employee_id
 
     @api.onchange('location_id')
