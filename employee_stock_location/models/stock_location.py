@@ -29,4 +29,4 @@ class StockLocation(models.Model):
                     employee_id.location_id = stock_location_id.id
                 else:
                     raise ValidationError(_("Esté empleado ya tiene una ubicación de transito asignada"))
-            return stock_location_id
+        return stock_location_id
