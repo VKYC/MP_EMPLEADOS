@@ -4,21 +4,19 @@ from odoo import models, fields, api
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    location_id = fields.Many2one(comodel_name='stock.location', string='Ubicación de Transito')
+    location_id = fields.Many2one(comodel_name='stock.location', string='Ubicación de Transito', default=False)
     is_transit_location = fields.Boolean(string='Es Ubicación de Transito', default=False, copy=False)
 
     @api.model
     def create(self, vals):
         employee_id = super(HrEmployee, self).create(vals)
-        if vals['is_transit_location'] and not vals['location_id']:
+        if vals.get('is_transit_location') and not vals.get('location_id'):
             vals['location_id'] = self.env['stock.location'].create({
                 'name': vals['identification_id'] + '-' + vals['name'],
                 'usage': 'transit',
                 'is_employee': True,
                 'employee_id': employee_id.id,
             })
-        else:
-            return employee_id
         return employee_id
 
     @api.onchange('location_id')
