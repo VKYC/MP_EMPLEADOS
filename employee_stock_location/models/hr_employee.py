@@ -10,7 +10,7 @@ class HrEmployee(models.Model):
     @api.model
     def create(self, vals):
         employee_id = super(HrEmployee, self).create(vals)
-        if vals.get('is_transit_location') and not vals.get('location_id'):
+        if 'is_transit_location' in vals and 'location_id' not in vals:
             vals['location_id'] = self.env['stock.location'].create({
                 'name': vals['identification_id'] + '-' + vals['name'],
                 'usage': 'transit',
