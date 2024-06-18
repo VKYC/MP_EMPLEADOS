@@ -1,8 +1,9 @@
 {
     'name': 'Employee Stock Location',
-    'version': '15.0.0.0.1',
+    'version': '15.0.0.0.2',
     'summary': """ Employee Transit Location Feature """,
-    'author': 'Baruc Álvarez',
+    'author': 'HOLDCO Networks - Baruc Alvarez',
+    'website': 'HOLDCO Networks',
     'category': 'Employees',
     'depends': ['base', 'stock', 'employee_ring_gastos', 'hr'],
     "data": [
