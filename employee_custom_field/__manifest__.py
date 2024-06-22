@@ -9,7 +9,7 @@
     'category': 'employee',
     'version': '15.0.0.0.1',
 
-    'depends': ['hr'],
+    'depends': ['base', 'hr'],
 
     'data': [
         'views/hr_department_views.xml'
